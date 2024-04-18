@@ -90,6 +90,8 @@
     "@types/webpack-env": "1.16.4",
     "@types/yup": "0.29.13",
     "@vitejs/plugin-react": "^4.0.2",
+    "@playwright/test": "^1.43.0",
+    "@playwright/experimental-ct-react": "^1.43.1",
     "bcryptjs": "2.4.3",
     "concurrently": "7.1.0",
     "connect-history-api-fallback": "1.6.0",
