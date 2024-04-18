@@ -41,6 +41,5 @@ export default defineConfig(({ command, mode }) => {
       setupFiles: "./src/setup-tests.js",
       exclude: ["node_modules", "cypress", "playwright", "dist", "src/components"],
     },
-
   };
 });

@@ -16,7 +16,7 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "noFallthroughCasesInSwitch": true,
-    "types": ["cypress", "playwright"],
+    "types": ["cypress", "playwright"]
   },
   "include": [
     "src/**/*.cy.{js,ts,jsx,tsx}",
@@ -28,6 +28,6 @@
     "cypress.d.ts",
     "playwright-ct.config.ts",
     "playwright.config.ts",
-    "src/utils/portUtils.ts",
-  ],
+    "src/utils/portUtils.ts"
+  ]
 }
