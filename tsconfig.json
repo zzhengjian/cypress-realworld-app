@@ -20,10 +20,14 @@
   },
   "include": [
     "src/**/*.cy.{js,ts,jsx,tsx}",
+    "src/**/*.spec.{js,ts,jsx,tsx}",
+    "src/**/*.story.{js,ts,jsx,tsx}",
     "scripts",
     "backend",
     "src/__tests__",
     "cypress.d.ts",
+    "playwright-ct.config.ts",
+    "playwright.config.ts",
     "src/utils/portUtils.ts",
   ],
 }

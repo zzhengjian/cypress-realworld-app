@@ -1,6 +1,5 @@
-import { startCase } from "lodash";
 import { interpret } from "xstate";
-import { test, expect } from '@playwright/experimental-ct-react';
+import { test, expect } from "@playwright/experimental-ct-react";
 import AlertBarWrapper from "./AlertBar.story";
 import { AlertBarState } from "./AlertBar.story";
 import { Severities, snackbarMachine } from "../machines/snackbarMachine";
@@ -18,7 +17,11 @@ test.describe("Alert Bar with state", () => {
 
   SeverityValues.forEach((severity) => {
     test(`Alert Bar shows ${severity} message`, async ({ mount }) => {
-      let payload:AlertBarState = { type: "SHOW", severity: severity , message: "Test Message" };
+      let payload: AlertBarState = {
+        type: "SHOW",
+        severity: severity,
+        message: "Test Message",
+      };
       snackbarService.send(payload);
       expect(snackbarService.state.value).toBe("visible");
 
