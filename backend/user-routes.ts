@@ -23,12 +23,48 @@ import {
 const router = express.Router();
 
 // Routes
+/**
+ * @swagger
+ * /users/:
+ *   get:
+ *     tags:
+ *       - Users
+ *     description: Returns all users except the current logged in user
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: Users fetched successfully
+ *     security:
+ *       - Bearer: []
+ */
 router.get("/", ensureAuthenticated, (req, res) => {
   /* istanbul ignore next */
   const users = removeUserFromResults(req.user?.id!, getAllUsers());
   res.status(200).json({ results: users });
 });
 
+/**
+ * @swagger
+ * /users/search:
+ *   get:
+ *     tags:
+ *       - Users
+ *     description: Returns users based on search query, excluding the current logged in user
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: q
+ *         description: Search query
+ *         in: query
+ *         required: true
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: Users fetched successfully
+ *     security:
+ *       - Bearer: []
+ */
 router.get("/search", ensureAuthenticated, validateMiddleware([searchValidation]), (req, res) => {
   const { q } = req.query;
 

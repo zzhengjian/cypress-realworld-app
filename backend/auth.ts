@@ -36,6 +36,49 @@ passport.deserializeUser(function (id: string, done) {
 });
 
 // authentication routes
+/**
+ * @swagger
+ * tags:
+ *   - name: Authentication
+ *     description: Authentication for the site
+ * /login:
+ *  post:
+ *    tags: [Authentication]
+ *    summary: Authenticate a User
+ *    description: Login to the system
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            required:
+ *              - username
+ *              - password
+ *            properties:
+ *              username:
+ *                type: string
+ *              password:
+ *                type: string
+ *              remember:
+ *                type: boolean
+ *                description: Keep the user logged in even after the browser closes
+ *            example:
+ *              username: Heath93
+ *              password: s3cret
+ *              remember: false
+ *    responses:
+ *      '200':
+ *        description: A successful response, returns user data
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                user:
+ *      '401':
+ *        description: Unauthorized, returns an error message
+ */
 router.post("/login", passport.authenticate("local"), (req: Request, res: Response): void => {
   if (req.body.remember) {
     req.session!.cookie.maxAge = 24 * 60 * 60 * 1000 * 30; // Expire in 30 days
@@ -46,6 +89,22 @@ router.post("/login", passport.authenticate("local"), (req: Request, res: Respon
   res.send({ user: req.user });
 });
 
+/**
+ * @swagger
+ * tags:
+ *   - name: Authentication
+ *     description: Authentication for the site
+ * /logout:
+ *  post:
+ *    tags: [Authentication]
+ *    summary: Deauthenticate (Logout) a User
+ *    description: Logout from the system
+ *    responses:
+ *      '200':
+ *        description: A successful response, returns a redirect to the home page
+ *      '500':
+ *        description: Internal Server Error, returns an error message
+ */
 router.post("/logout", (req: Request, res: Response): void => {
   res.clearCookie("connect.sid");
   req.logout(() => res.redirect("/"));

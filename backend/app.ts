@@ -11,6 +11,8 @@ import { loadSchemaSync } from "@graphql-tools/load";
 import { GraphQLFileLoader } from "@graphql-tools/graphql-file-loader";
 import { addResolversToSchema } from "@graphql-tools/schema";
 
+import swaggerJsdoc from "swagger-jsdoc";
+import swaggerUi from "swagger-ui-express";
 import auth from "./auth";
 import userRoutes from "./user-routes";
 import contactRoutes from "./contact-routes";
@@ -48,6 +50,31 @@ const app = express();
 if (global.__coverage__) {
   require("@cypress/code-coverage/middleware/express")(app);
 }
+
+// Options for the Swagger documentation generation
+const swaggerOptions = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "Your API",
+      version: "1.0.0",
+      description: "A simple Express API",
+    },
+    servers: [
+      {
+        url: `http://localhost:${process.env.VITE_BACKEND_PORT}`,
+      },
+    ],
+  },
+  // Path to the API docs
+  apis: ["backend/*.ts"],
+};
+
+// Swagger documentation setup
+const swaggerSpecs = swaggerJsdoc(swaggerOptions);
+
+// use Swagger with express
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
 app.use(cors(corsOption));
 app.use(logger("dev"));

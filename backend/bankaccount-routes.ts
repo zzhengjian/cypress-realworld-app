@@ -15,6 +15,33 @@ const router = express.Router();
 // Routes
 
 //GET /bankAccounts (scoped-user)
+/**
+ * @swagger
+ * /bankAccounts:
+ *  get:
+ *   tags:
+ *      - BankAccounts
+ *   summary: Retrieve a list of bank accounts
+ *   description: Retrieve a list of bank accounts for the authenticated user
+ *   parameters:
+ *     - in: header
+ *       name: authorization
+ *       schema:
+ *         type: string
+ *       required: true
+ *       description: userid
+ *   responses:
+ *     200:
+ *       description: A list of bank accounts
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               results:
+ *                 type: array
+ *                 items:
+ */
 router.get("/", ensureAuthenticated, (req, res) => {
   /* istanbul ignore next */
   const accounts = getBankAccountsByUserId(req.user?.id!);

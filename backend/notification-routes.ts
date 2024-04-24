@@ -17,6 +17,29 @@ const router = express.Router();
 // Routes
 
 //GET /notifications/
+/**
+ * @openapi
+ * /notifications/:
+ *   get:
+ *     tags:
+ *       - Notifications
+ *     summary: Get user's unread notifications
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: A list of user's unread notifications
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 results:
+ *                   type: array
+ *                   items:
+ *       401:
+ *         description: Unauthorized
+ */
 router.get("/", ensureAuthenticated, (req, res) => {
   /* istanbul ignore next */
   const notifications = getUnreadNotificationsByUserId(req.user?.id!);
@@ -26,6 +49,7 @@ router.get("/", ensureAuthenticated, (req, res) => {
 });
 
 //POST /notifications/bulk
+
 router.post(
   "/bulk",
   ensureAuthenticated,
